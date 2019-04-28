@@ -15,3 +15,32 @@ label {
     margin: 0 auto;
   }
 }
+
+.col-small {
+  width: 120px;
+}
+
+.col-action {
+  width: 100px;
+}
+
+.cell-date {
+  text-align: center;
+}
+
+.cell-value {
+  text-align: right;
+}
+
+.cell-action {
+  text-align:  center;
+}
+
+.action-button-margin {
+  margin: 2px;
+}
+
+.to-label-margin {
+  margin-left: 6px;
+  margin-right: 6px;
+}
