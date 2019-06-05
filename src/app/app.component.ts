@@ -23,6 +23,41 @@ export class AppComponent {
       paymentDay: '02/03/2004',
       value: 10.5,
       person: 'Person two'
+    }, {
+      type: 'INCOME',
+      description: 'desc2',
+      dueDate: '01/01/2000',
+      paymentDay: '02/03/2004',
+      value: 10.5,
+      person: 'Person two'
+    }, {
+      type: 'INCOME',
+      description: 'desc2',
+      dueDate: '01/01/2000',
+      paymentDay: '02/03/2004',
+      value: 10.5,
+      person: 'Person two'
+    }, {
+      type: 'INCOME',
+      description: 'desc2',
+      dueDate: '01/01/2000',
+      paymentDay: '02/03/2004',
+      value: 10.5,
+      person: 'Person two'
+    }, {
+      type: 'INCOME',
+      description: 'desc2',
+      dueDate: '01/01/2000',
+      paymentDay: '02/03/2004',
+      value: 10.5,
+      person: 'Person two'
+    }, {
+      type: 'INCOME',
+      description: 'desc2',
+      dueDate: '01/01/2000',
+      paymentDay: '02/03/2004',
+      value: 10.5,
+      person: 'Person two'
     }
   ];
 }
