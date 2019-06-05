@@ -42,8 +42,10 @@
             {{financialEntry.value}}
           </td>
           <td class="cell-action">
-            <a pButton icon="fa fa-pencil" class="action-button-margin"></a>
-            <button pButton icon="fa fa-trash" class="action-button-margin"></button>
+            <button pButton icon="fa fa-pencil" class="action-button-margin"
+                    pTooltip="Edit" tooltipPosition="top"></button>
+            <button pButton icon="fa fa-trash" class="action-button-margin"
+                    pTooltip="Delete" tooltipPosition="top"></button>
           </td>
         </tr>
       </ng-template>
