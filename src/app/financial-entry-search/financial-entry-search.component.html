@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Financial Entries</h1>
+    </div>
+
+    <div class="ui-g-12 ui-fluid">
+      <label for="description">Description</label>
+      <input id="description" pInputText type="text"/>
+    </div>
+
+    <div class="ui-g-12">
+      <label for="from-due-date" style="display: block">Due date</label>
+
+      <input id="from-due-date" pInputText type="text"/>
+      <label for="to-due-date" class="to-label-margin">to</label>
+      <input id="to-due-date" pInputText type="text">
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Search"></button>
+    </div>
+
+    <p-table [value]="financialEntries" [paginator]="true" [rows]="3" [responsive]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Person</th>
+          <th>Description</th>
+          <th class="col-small">Due Date</th>
+          <th class="col-small">Payment Date</th>
+          <th class="col-small">Value</th>
+          <th class="col-action"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-financialEntry>
+        <tr>
+          <td>{{financialEntry.type}}</td>
+          <td>{{financialEntry.description}}</td>
+          <td class="cell-date">{{financialEntry.dueDate}}</td>
+          <td class="cell-date">{{financialEntry.paymentDay}}</td>
+          <td class="cell-value" [ngStyle]="{color: financialEntry.type == 'INCOME' ? 'blue' : 'red'}">
+            {{financialEntry.value}}
+          </td>
+          <td class="cell-action">
+            <button pButton icon="fa fa-pencil" class="action-button-margin"
+                    pTooltip="Edit" tooltipPosition="top"></button>
+            <button pButton icon="fa fa-trash" class="action-button-margin"
+                    pTooltip="Delete" tooltipPosition="top"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <div class="ui-g-12">
+      <a pButton label="New Financial Entry"></a>
+    </div>
+  </div>
+</div>
