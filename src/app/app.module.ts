@@ -6,12 +6,14 @@ import {ButtonModule, InputTextModule, TooltipModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {FinancialEntrySearchComponent} from './financial-entry-search/financial-entry-search.component';
 import {NavbarComponent} from './navbar/navbar.component';
+import {PersonSearchComponent} from './person-search/person-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FinancialEntrySearchComponent,
-    NavbarComponent
+    NavbarComponent,
+    PersonSearchComponent
   ],
   imports: [
     BrowserModule,
