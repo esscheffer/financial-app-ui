@@ -6,56 +6,34 @@ import {Component} from '@angular/core';
   styleUrls: ['./financial-entry-search.component.css']
 })
 export class FinancialEntrySearchComponent {
-  financialEntries = [
-    {
-      type: 'EXPENSE',
-      description: 'desc1',
-      dueDate: '01/01/2000',
-      paymentDay: null,
+  financialEntries = getMockFinancialEntries();
+}
+
+function getMockFinancialEntries() {
+  let financialEntries = [];
+  for (let i = 0; i < 30; i++) {
+    financialEntries.push({
+      type: Math.random() >= 0.5 ? 'EXPENSE' : "INCOME",
+      description: `description ${getRandomNumber()}`,
+      dueDate: randomDate(),
+      paymentDay: randomDate(),
       value: 10.5,
-      person: 'Person one'
-    }, {
-      type: 'INCOME',
-      description: 'desc2',
-      dueDate: '01/01/2000',
-      paymentDay: '02/03/2004',
-      value: 10.5,
-      person: 'Person two'
-    }, {
-      type: 'INCOME',
-      description: 'desc2',
-      dueDate: '01/01/2000',
-      paymentDay: '02/03/2004',
-      value: 10.5,
-      person: 'Person two'
-    }, {
-      type: 'INCOME',
-      description: 'desc2',
-      dueDate: '01/01/2000',
-      paymentDay: '02/03/2004',
-      value: 10.5,
-      person: 'Person two'
-    }, {
-      type: 'INCOME',
-      description: 'desc2',
-      dueDate: '01/01/2000',
-      paymentDay: '02/03/2004',
-      value: 10.5,
-      person: 'Person two'
-    }, {
-      type: 'INCOME',
-      description: 'desc2',
-      dueDate: '01/01/2000',
-      paymentDay: '02/03/2004',
-      value: 10.5,
-      person: 'Person two'
-    }, {
-      type: 'INCOME',
-      description: 'desc2',
-      dueDate: '01/01/2000',
-      paymentDay: '02/03/2004',
-      value: 10.5,
-      person: 'Person two'
-    }
-  ];
+      person: `Person ${getRandomNumber()}`,
+    });
+  }
+  return financialEntries;
+}
+
+function getRandomNumber() {
+  return Math.floor(Math.random() * 100);
+}
+
+function randomDate() {
+  let start = new Date();
+  start.setDate(start.getDate() - 10);
+
+  let end = new Date();
+  end.setDate(end.getDate() + 10);
+
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }

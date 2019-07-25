@@ -36,10 +36,10 @@
         <tr>
           <td>{{financialEntry.type}}</td>
           <td>{{financialEntry.description}}</td>
-          <td class="cell-date">{{financialEntry.dueDate}}</td>
-          <td class="cell-date">{{financialEntry.paymentDay}}</td>
+          <td class="cell-date">{{financialEntry.dueDate | date:"dd/MM/y"}}</td>
+          <td class="cell-date">{{financialEntry.paymentDay | date:"dd/MM/y"}}</td>
           <td class="cell-value" [ngStyle]="{color: financialEntry.type == 'INCOME' ? 'blue' : 'red'}">
-            {{financialEntry.value}}
+            {{financialEntry.value | currency}}
           </td>
           <td class="cell-action">
             <button pButton icon="fa fa-pencil" class="action-button-margin"

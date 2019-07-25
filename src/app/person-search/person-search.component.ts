@@ -20,7 +20,6 @@ function getMockPeople() {
     });
   }
   return people;
-
 }
 
 function getRandomNumber() {
