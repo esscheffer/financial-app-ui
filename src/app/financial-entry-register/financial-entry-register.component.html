@@ -1,0 +1,50 @@
+<div class="container">
+  <form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>New Financial Entry</h1>
+      </div>
+
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label for="dueDate">Due date</label>
+        <input id="dueDate" pInputText type="text"/>
+      </div>
+
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label for="paymentDate">Payment date</label>
+        <input id="paymentDate" pInputText type="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label for="description">Description</label>
+        <input id="description" pInputText type="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label for="value">Value</label>
+        <input id="value" pInputText type="text" placeholder="{{0 | currency}}"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label for="person">Person</label>
+        <input id="person" pInputText type="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label for="category">Category</label>
+        <input id="category" pInputText type="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label for="observation">Observation</label>
+        <textarea id="observation" pInputTextarea rows="3"></textarea>
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Save" class="button-margin"></button>
+        <button pButton type="button" label="New" class="button-margin ui-button-info"></button>
+        <a href="javascript:" class="button-margin">Go back to search</a>
+      </div>
+    </div>
+  </form>
+</div>

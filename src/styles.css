@@ -40,6 +40,10 @@ body .action-button-margin {
   margin: 2px;
 }
 
+body .button-margin {
+  margin: 4px;
+}
+
 .to-label-margin {
   margin-left: 6px;
   margin-right: 6px;
