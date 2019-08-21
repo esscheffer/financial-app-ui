@@ -1,0 +1,55 @@
+<div class="container">
+  <form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>New Person</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label for="name">Name</label>
+        <input pInputText id="name"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label for="description">Street Address</label>
+        <input id="description" pInputText type="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label for="number">Number</label>
+        <input pInputText id="number" type="number"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label for="complement">Complement</label>
+        <input pInputText id="complement" type="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label for="neighborhood">Neighborhood</label>
+        <input pInputText id="neighborhood" type="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label for="zipCode">Zip Code</label>
+        <p-inputMask mask="99999-999" id="zipCode" placeholder="99999-999"></p-inputMask>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label for="city">City</label>
+        <input pInputText id="city" type="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label for="state">State</label>
+        <input pInputText id="state" type="text"/>
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Save" class="button-margin"></button>
+        <button pButton type="button" label="New" class="button-margin ui-button-info"></button>
+        <a href="javascript:" class="button-margin">Go back to search</a>
+      </div>
+    </div>
+  </form>
+</div>

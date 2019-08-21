@@ -6,6 +6,7 @@ import {
   ButtonModule,
   CalendarModule,
   DropdownModule,
+  InputMaskModule,
   InputTextareaModule,
   InputTextModule,
   SelectButtonModule,
@@ -19,6 +20,7 @@ import {FinancialEntryRegisterComponent} from './financial-entry-register/financ
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CurrencyMaskModule} from "ng2-currency-mask";
 import {FormsModule} from "@angular/forms";
+import {PersonRegisterComponent} from './person-register/person-register.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import {FormsModule} from "@angular/forms";
     FinancialEntrySearchComponent,
     NavbarComponent,
     PersonSearchComponent,
-    FinancialEntryRegisterComponent
+    FinancialEntryRegisterComponent,
+    PersonRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import {FormsModule} from "@angular/forms";
     SelectButtonModule,
     DropdownModule,
     CurrencyMaskModule,
-    FormsModule
+    FormsModule,
+    InputMaskModule
   ],
   providers: [],
   bootstrap: [AppComponent]
