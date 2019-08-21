@@ -7,7 +7,25 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FinancialEntryRegisterComponent implements OnInit {
 
-  constructor() { }
+  value;
+
+  types = [
+    {label: "Income", value: "INCOME"},
+    {label: "Expense", value: "EXPENSE"}
+  ];
+
+  categories = [
+    {label: "Category 1", value: 1},
+    {label: "Category 2", value: 2}
+  ];
+
+  people = [
+    {label: "Person 1", value: 1},
+    {label: "Person 2", value: 2}
+  ];
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

@@ -5,14 +5,18 @@
         <h1>New Financial Entry</h1>
       </div>
 
-      <div class="ui-g-6 ui-md-3 ui-fluid">
-        <label for="dueDate">Due date</label>
-        <input id="dueDate" pInputText type="text"/>
+      <div class="ui-g-12">
+        <p-selectButton [options]="types" #type></p-selectButton>
       </div>
 
       <div class="ui-g-6 ui-md-3 ui-fluid">
-        <label for="paymentDate">Payment date</label>
-        <input id="paymentDate" pInputText type="text"/>
+        <label for="dueDate">Due date</label>
+        <p-calendar id="dueDate" dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label for="paymentDate">{{type.value === 'INCOME' ? 'Income' : 'Expense'}} date</label>
+        <p-calendar id="paymentDate" dateFormat="dd/mm/yy"></p-calendar>
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
@@ -22,17 +26,20 @@
 
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label for="value">Value</label>
-        <input id="value" pInputText type="text" placeholder="{{0 | currency}}"/>
+        <input id="value" pInputText currencyMask type="text" placeholder="{{0 | currency}}"
+               [(ngModel)]="value" name="value"/>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="person">Person</label>
-        <input id="person" pInputText type="text"/>
+        <p-dropdown id="person" [options]="people" placeholder="Select"
+                    [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="category">Category</label>
-        <input id="category" pInputText type="text"/>
+        <p-dropdown id="category" [options]="categories" placeholder="Select"
+                    [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
       </div>
 
       <div class="ui-g-12 ui-fluid">
