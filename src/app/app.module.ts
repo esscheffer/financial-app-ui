@@ -22,6 +22,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CurrencyMaskModule} from "ng2-currency-mask";
 import {FormsModule} from "@angular/forms";
 import {PersonRegisterComponent} from './person-register/person-register.component';
+import {FinancialEntryTableComponent} from './financial-entry-table/financial-entry-table.component';
+import {PersonTableComponent} from './person-table/person-table.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import {PersonRegisterComponent} from './person-register/person-register.compone
     NavbarComponent,
     PersonSearchComponent,
     FinancialEntryRegisterComponent,
-    PersonRegisterComponent
+    PersonRegisterComponent,
+    FinancialEntryTableComponent,
+    PersonTableComponent
   ],
   imports: [
     BrowserModule,
