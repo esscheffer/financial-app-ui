@@ -7,8 +7,6 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FinancialEntryRegisterComponent implements OnInit {
 
-  value;
-
   types = [
     {label: "Income", value: "INCOME"},
     {label: "Expense", value: "EXPENSE"}

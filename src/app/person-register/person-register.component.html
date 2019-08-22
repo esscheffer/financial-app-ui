@@ -7,17 +7,29 @@
 
       <div class="ui-g-12 ui-fluid">
         <label for="name">Name</label>
-        <input pInputText id="name"/>
+        <input pInputText id="name" name="name"
+               ngModel #name="ngModel" required minlength="5"/>
+        <p-message *ngIf="name.hasError('required') && name.dirty"
+                   severity="error" text="Description is required."></p-message>
+        <p-message *ngIf="name.hasError('minlength') && name.dirty" severity="error"
+                   text="Name  minimum length is {{name.errors.minlength.requiredLength}}.
+                   Current length is {{name.errors.minlength.actualLength}}."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
-        <label for="description">Street Address</label>
-        <input id="description" pInputText type="text"/>
+        <label for="streetAddress">Street Address</label>
+        <input id="streetAddress" pInputText type="text" name="streetAddress"
+               ngModel #streetAddress="ngModel" required/>
+        <p-message *ngIf="streetAddress.hasError('required') && streetAddress.dirty"
+                   severity="error" text="Street Address is required."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label for="number">Number</label>
-        <input pInputText id="number" type="number"/>
+        <input pInputText id="number" type="number" name="number"
+               ngModel #number="ngModel" required/>
+        <p-message *ngIf="number.hasError('required') && number.dirty"
+                   severity="error" text="Number is required."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
@@ -27,22 +39,34 @@
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label for="neighborhood">Neighborhood</label>
-        <input pInputText id="neighborhood" type="text"/>
+        <input pInputText id="neighborhood" type="text" name="neighborhood"
+               ngModel #neighborhood="ngModel" required/>
+        <p-message *ngIf="neighborhood.hasError('required') && neighborhood.dirty"
+                   severity="error" text="Neighborhood is required."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label for="zipCode">Zip Code</label>
-        <p-inputMask mask="99999-999" id="zipCode" placeholder="99999-999"></p-inputMask>
+        <p-inputMask mask="99999-999" id="zipCode" placeholder="99999-999" name="zipCode"
+                     ngModel #zipCode="ngModel" required></p-inputMask>
+        <p-message *ngIf="zipCode.hasError('required') && zipCode.dirty"
+                   severity="error" text="Zip Code is required."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="city">City</label>
-        <input pInputText id="city" type="text"/>
+        <input pInputText id="city" type="text" name="city"
+               ngModel #city="ngModel" required/>
+        <p-message *ngIf="city.hasError('required') && city.dirty"
+                   severity="error" text="City is required."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="state">State</label>
-        <input pInputText id="state" type="text"/>
+        <input pInputText id="state" type="text" name="state"
+               ngModel #state="ngModel" required/>
+        <p-message *ngIf="state.hasError('required') && state.dirty"
+                   severity="error" text="State is required."></p-message>
       </div>
 
       <div class="ui-g-12">

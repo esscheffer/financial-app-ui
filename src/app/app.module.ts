@@ -9,6 +9,7 @@ import {
   InputMaskModule,
   InputTextareaModule,
   InputTextModule,
+  MessageModule,
   SelectButtonModule,
   TooltipModule
 } from 'primeng/primeng';
@@ -44,7 +45,8 @@ import {PersonRegisterComponent} from './person-register/person-register.compone
     DropdownModule,
     CurrencyMaskModule,
     FormsModule,
-    InputMaskModule
+    InputMaskModule,
+    MessageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
