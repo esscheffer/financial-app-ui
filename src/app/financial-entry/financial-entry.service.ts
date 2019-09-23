@@ -27,9 +27,10 @@ export class FinancialEntryService {
       params = params.set('dueDateMax', moment(filter.dueDateMax).format(AppConstants.webServiceDateFormat))
     }
 
+    params = params.set('page', filter.page.toString());
+    params = params.set('size', filter.pageSize.toString());
+
     return this.httpClient.get('http://localhost:8081/financialEntries?summary', {params})
       .toPromise();
-    // .then(response => console.log('response', response))
-    // .catch(error => console.log('error', error))
   }
 }

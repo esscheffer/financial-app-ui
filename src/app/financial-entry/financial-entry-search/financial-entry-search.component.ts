@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FinancialEntryService} from "../financial-entry.service";
 import {FinancialEntryFilter} from "../financialEntryFilter";
+import {LazyLoadEvent} from "primeng/api";
 
 @Component({
   selector: 'app-financial-entry-search',
@@ -10,20 +11,25 @@ import {FinancialEntryFilter} from "../financialEntryFilter";
 export class FinancialEntrySearchComponent implements OnInit {
   financialEntries = [];
   financialEntryFilter = new FinancialEntryFilter();
+  totalFinancialEntries = 0;
 
   constructor(private financialEntryService: FinancialEntryService) {
   }
 
   ngOnInit(): void {
-    this.search()
   }
 
-  search() {
+  search(page = 0) {
+    this.financialEntryFilter.page = page;
     this.financialEntryService.search(this.financialEntryFilter)
-      .then(response => {
-        // @ts-ignore
+      .then((response: any) => {
         this.financialEntries = response.content;
+        this.totalFinancialEntries = response.totalElements;
       })
       .catch(error => console.log("error: ", error));
+  }
+
+  onTableLazyLoad(event: LazyLoadEvent) {
+    this.search(event.first / event.rows);
   }
 }
