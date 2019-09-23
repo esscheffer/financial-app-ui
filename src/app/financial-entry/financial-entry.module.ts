@@ -15,6 +15,7 @@ import {
 import {FormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
 import {CurrencyMaskModule} from "ng2-currency-mask";
+import {FinancialEntryService} from "./financial-entry.service";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,9 @@ import {CurrencyMaskModule} from "ng2-currency-mask";
   exports: [
     FinancialEntryRegisterComponent,
     FinancialEntrySearchComponent
+  ],
+  providers: [
+    FinancialEntryService
   ]
 })
 export class FinancialEntryModule {

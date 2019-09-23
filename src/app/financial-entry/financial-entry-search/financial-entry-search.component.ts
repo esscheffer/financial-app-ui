@@ -1,39 +1,29 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FinancialEntryService} from "../financial-entry.service";
+import {FinancialEntryFilter} from "../financialEntryFilter";
 
 @Component({
   selector: 'app-financial-entry-search',
   templateUrl: './financial-entry-search.component.html',
   styleUrls: ['./financial-entry-search.component.css']
 })
-export class FinancialEntrySearchComponent {
-  financialEntries = getMockFinancialEntries();
-}
+export class FinancialEntrySearchComponent implements OnInit {
+  financialEntries = [];
+  financialEntryFilter = new FinancialEntryFilter();
 
-function getMockFinancialEntries() {
-  let financialEntries = [];
-  for (let i = 0; i < 30; i++) {
-    financialEntries.push({
-      type: Math.random() >= 0.5 ? 'EXPENSE' : "INCOME",
-      description: `description ${getRandomNumber()}`,
-      dueDate: randomDate(),
-      paymentDay: randomDate(),
-      value: 10.5,
-      person: `Person ${getRandomNumber()}`,
-    });
+  constructor(private financialEntryService: FinancialEntryService) {
   }
-  return financialEntries;
-}
 
-function getRandomNumber() {
-  return Math.floor(Math.random() * 100);
-}
+  ngOnInit(): void {
+    this.search()
+  }
 
-function randomDate() {
-  let start = new Date();
-  start.setDate(start.getDate() - 10);
-
-  let end = new Date();
-  end.setDate(end.getDate() + 10);
-
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  search() {
+    this.financialEntryService.search(this.financialEntryFilter)
+      .then(response => {
+        // @ts-ignore
+        this.financialEntries = response.content;
+      })
+      .catch(error => console.log("error: ", error));
+  }
 }

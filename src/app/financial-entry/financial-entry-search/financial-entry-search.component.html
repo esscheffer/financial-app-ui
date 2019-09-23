@@ -1,25 +1,30 @@
 <div class="container">
   <div class="ui-g">
-    <div class="ui-g-12">
-      <h1>Financial Entries</h1>
-    </div>
+    <form autocomplete="off" (ngSubmit)="search()">
+      <div class="ui-g-12">
+        <h1>Financial Entries</h1>
+      </div>
 
-    <div class="ui-g-12 ui-fluid">
-      <label for="description">Description</label>
-      <input id="description" pInputText type="text"/>
-    </div>
+      <div class="ui-g-12 ui-fluid">
+        <label for="description">Description</label>
+        <input id="description" pInputText type="text" name="entryDescription"
+               [(ngModel)]="financialEntryFilter.description"/>
+      </div>
 
-    <div class="ui-g-12">
-      <label for="from-due-date" style="display: block">Due date</label>
+      <div class="ui-g-12">
+        <label for="from-due-date" style="display: block">Due date</label>
 
-      <input id="from-due-date" pInputText type="text"/>
-      <label for="to-due-date" class="to-label-margin">to</label>
-      <input id="to-due-date" pInputText type="text">
-    </div>
+        <p-calendar id="from-due-date" dateFormat="dd/mm/yy" name="dueDateMin"
+                    [(ngModel)]="financialEntryFilter.dueDateMin"></p-calendar>
+        <label for="to-due-date" class="to-label-margin">to</label>
+        <p-calendar id="to-due-date" dateFormat="dd/mm/yy" name="dueDateMax"
+                    [(ngModel)]="financialEntryFilter.dueDateMax"></p-calendar>
+      </div>
 
-    <div class="ui-g-12">
-      <button pButton type="submit" label="Search"></button>
-    </div>
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Search"></button>
+      </div>
+    </form>
 
     <app-financial-entry-table [financialEntries]="financialEntries"></app-financial-entry-table>
 
