@@ -22,7 +22,7 @@ export class FinancialEntrySearchComponent implements OnInit {
   search(page = 0) {
     this.financialEntryFilter.page = page;
     this.financialEntryService.search(this.financialEntryFilter)
-      .then((response: any) => {
+      .then(response => {
         this.financialEntries = response.content;
         this.totalFinancialEntries = response.totalElements;
       })

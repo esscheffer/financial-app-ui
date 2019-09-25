@@ -1,27 +1,36 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PersonFilter} from "../PersonFilter";
+import {PersonService} from "../person.service";
+import {LazyLoadEvent} from "primeng/api";
 
 @Component({
   selector: 'app-person-search',
   templateUrl: './person-search.component.html',
   styleUrls: ['./person-search.component.css']
 })
-export class PersonSearchComponent {
-  people = getMockPeople();
-}
+export class PersonSearchComponent implements OnInit {
+  people = [];
+  personFilter = new PersonFilter();
+  totalPeople = 0;
 
-function getMockPeople() {
-  let people = [];
-  for (let i = 0; i < 30; i++) {
-    people.push({
-      name: `name ${getRandomNumber()}`,
-      city: `city ${getRandomNumber()}`,
-      state: `state ${getRandomNumber()}`,
-      active: Math.random() >= 0.5
-    });
+  constructor(private personService: PersonService) {
   }
-  return people;
-}
 
-function getRandomNumber() {
-  return Math.floor(Math.random() * 100);
+  ngOnInit(): void {
+  }
+
+  search(page = 0) {
+    this.personFilter.page = page;
+    this.personService.search(this.personFilter)
+      .then(response => {
+        console.log(response);
+        this.people = response.content;
+        this.totalPeople = response.totalElements;
+      })
+      .catch(error => console.log("error: ", error));
+  }
+
+  onTableLazyLoad(event: LazyLoadEvent) {
+    this.search(event.first / event.rows);
+  }
 }

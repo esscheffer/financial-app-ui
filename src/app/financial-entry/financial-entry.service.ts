@@ -12,7 +12,7 @@ export class FinancialEntryService {
   constructor(private httpClient: HttpClient) {
   }
 
-  search(filter: FinancialEntryFilter) {
+  search(filter: FinancialEntryFilter): Promise<any> {
     let params = new HttpParams();
 
     if (filter.description) {

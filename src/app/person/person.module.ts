@@ -9,6 +9,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {ButtonModule, InputMaskModule, TooltipModule} from "primeng/primeng";
 import {NgxViacepModule} from "@brunoc/ngx-viacep";
+import {PersonService} from "./person.service";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,9 @@ import {NgxViacepModule} from "@brunoc/ngx-viacep";
   exports: [
     PersonRegisterComponent,
     PersonSearchComponent
+  ],
+  providers: [
+    PersonService
   ]
 })
 export class PersonModule { }
