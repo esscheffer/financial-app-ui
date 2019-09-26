@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PersonRegisterComponent} from "./person-register/person-register.component";
 import {PersonSearchComponent} from "./person-search/person-search.component";
-import {PersonTableComponent} from "./person-table/person-table.component";
 import {MessageModule} from "primeng/message";
 import {FormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
@@ -15,7 +14,6 @@ import {PersonService} from "./person.service";
   declarations: [
     PersonRegisterComponent,
     PersonSearchComponent,
-    PersonTableComponent
   ],
   imports: [
     CommonModule,

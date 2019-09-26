@@ -23,7 +23,6 @@ export class PersonSearchComponent implements OnInit {
     this.personFilter.page = page;
     this.personService.search(this.personFilter)
       .then(response => {
-        console.log(response);
         this.people = response.content;
         this.totalPeople = response.totalElements;
       })

@@ -16,6 +16,7 @@ import {FormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
 import {CurrencyMaskModule} from "ng2-currency-mask";
 import {FinancialEntryService} from "./financial-entry.service";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {FinancialEntryService} from "./financial-entry.service";
     InputTextareaModule,
     InputTextModule,
     CurrencyMaskModule,
-    TooltipModule
+    TooltipModule,
+    ToastModule
   ],
   exports: [
     FinancialEntryRegisterComponent,

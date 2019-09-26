@@ -1,5 +1,7 @@
 <div class="container">
   <div class="ui-g">
+    <p-toast></p-toast>
+
     <form autocomplete="off" (ngSubmit)="search()">
       <div class="ui-g-12">
         <h1>Financial Entries</h1>
@@ -27,7 +29,7 @@
     </form>
 
     <p-table [value]="financialEntries" [paginator]="true" [rows]="5" [responsive]="true" [lazy]="true"
-             (onLazyLoad)="onTableLazyLoad($event)" [totalRecords]="totalFinancialEntries">
+             (onLazyLoad)="onTableLazyLoad($event)" [totalRecords]="totalFinancialEntries" #financialEntriesTable>
       <ng-template pTemplate="header">
         <tr>
           <th>Person</th>
@@ -38,7 +40,7 @@
           <th class="col-action"></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-financialEntry>
+      <ng-template pTemplate="body" let-financialEntryRow let-financialEntry>
         <tr>
           <td>{{financialEntry.type}}</td>
           <td>{{financialEntry.entryDescription}}</td>
@@ -51,7 +53,7 @@
             <button pButton icon="fa fa-pencil" class="action-button-margin"
                     pTooltip="Edit" tooltipPosition="top"></button>
             <button pButton icon="fa fa-trash" class="action-button-margin"
-                    pTooltip="Delete" tooltipPosition="top"></button>
+                    pTooltip="Delete" tooltipPosition="top" (click)="delete(financialEntryRow)"></button>
           </td>
         </tr>
       </ng-template>

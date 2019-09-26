@@ -9,6 +9,8 @@ import {AppConstants} from "../appConstants";
 })
 export class FinancialEntryService {
 
+  financialEntryApiUrl = 'http://localhost:8081/financialEntries';
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -30,7 +32,11 @@ export class FinancialEntryService {
     params = params.set('page', filter.page.toString());
     params = params.set('size', filter.pageSize.toString());
 
-    return this.httpClient.get('http://localhost:8081/financialEntries?summary', {params})
+    return this.httpClient.get(`${this.financialEntryApiUrl}?summary`, {params})
       .toPromise();
+  }
+
+  delete(id: number): Promise<any> {
+    return this.httpClient.delete(`${this.financialEntryApiUrl}/${id}`).toPromise();
   }
 }

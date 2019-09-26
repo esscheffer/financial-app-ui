@@ -1,19 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FinancialEntryService} from "../financial-entry.service";
 import {FinancialEntryFilter} from "../financialEntryFilter";
-import {LazyLoadEvent} from "primeng/api";
+import {LazyLoadEvent, MessageService} from "primeng/api";
+import {Table} from "primeng/table";
 
 @Component({
   selector: 'app-financial-entry-search',
   templateUrl: './financial-entry-search.component.html',
-  styleUrls: ['./financial-entry-search.component.css']
+  styleUrls: ['./financial-entry-search.component.css'],
+  providers: [MessageService]
 })
 export class FinancialEntrySearchComponent implements OnInit {
   financialEntries = [];
   financialEntryFilter = new FinancialEntryFilter();
   totalFinancialEntries = 0;
 
-  constructor(private financialEntryService: FinancialEntryService) {
+  @ViewChild('financialEntriesTable') table: Table;
+
+  constructor(private financialEntryService: FinancialEntryService,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -31,5 +36,13 @@ export class FinancialEntrySearchComponent implements OnInit {
 
   onTableLazyLoad(event: LazyLoadEvent) {
     this.search(event.first / event.rows);
+  }
+
+  delete(financialEntry: any) {
+    this.financialEntryService.delete(financialEntry.id)
+      .then(() => {
+        this.table.reset();
+        this.messageService.add({severity: 'success', summary: 'Financial Entry successfully deleted.'});
+      });
   }
 }
