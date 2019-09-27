@@ -5,6 +5,7 @@ import {FinancialEntrySearchComponent} from "./financial-entry-search/financial-
 import {FinancialEntryTableComponent} from "./financial-entry-table/financial-entry-table.component";
 import {
   CalendarModule,
+  ConfirmDialogModule,
   DropdownModule,
   InputTextareaModule,
   InputTextModule,
@@ -36,7 +37,8 @@ import {ToastModule} from "primeng/toast";
     InputTextModule,
     CurrencyMaskModule,
     TooltipModule,
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule
   ],
   exports: [
     FinancialEntryRegisterComponent,

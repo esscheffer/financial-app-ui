@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FinancialEntryService} from "../financial-entry.service";
 import {FinancialEntryFilter} from "../financialEntryFilter";
-import {LazyLoadEvent, MessageService} from "primeng/api";
+import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
 import {Table} from "primeng/table";
 
 @Component({
   selector: 'app-financial-entry-search',
   templateUrl: './financial-entry-search.component.html',
-  styleUrls: ['./financial-entry-search.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./financial-entry-search.component.css']
 })
 export class FinancialEntrySearchComponent implements OnInit {
   financialEntries = [];
@@ -18,7 +17,8 @@ export class FinancialEntrySearchComponent implements OnInit {
   @ViewChild('financialEntriesTable') table: Table;
 
   constructor(private financialEntryService: FinancialEntryService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService) {
   }
 
   ngOnInit(): void {
@@ -39,10 +39,15 @@ export class FinancialEntrySearchComponent implements OnInit {
   }
 
   delete(financialEntry: any) {
-    this.financialEntryService.delete(financialEntry.id)
-      .then(() => {
-        this.table.reset();
-        this.messageService.add({severity: 'success', summary: 'Financial Entry successfully deleted.'});
-      });
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want delete this financial entry?',
+      accept: () => {
+        this.financialEntryService.delete(financialEntry.id)
+          .then(() => {
+            this.table.reset();
+            this.messageService.add({severity: 'success', summary: 'Financial Entry successfully deleted.'});
+          });
+      }
+    });
   }
 }
