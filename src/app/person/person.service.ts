@@ -7,6 +7,8 @@ import {PersonFilter} from "./PersonFilter";
 })
 export class PersonService {
 
+  personApiUrl = 'http://localhost:8081/people';
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -20,7 +22,11 @@ export class PersonService {
     params = params.set('page', filter.page.toString());
     params = params.set('size', filter.pageSize.toString());
 
-    return this.httpClient.get('http://localhost:8081/people', {params})
+    return this.httpClient.get(`${this.personApiUrl}`, {params})
       .toPromise();
+  }
+
+  delete(id: number): Promise<any> {
+    return this.httpClient.delete(`${this.personApiUrl}/${id}`).toPromise();
   }
 }

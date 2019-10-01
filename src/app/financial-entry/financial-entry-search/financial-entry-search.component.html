@@ -1,9 +1,5 @@
 <div class="container">
   <div class="ui-g">
-    <p-toast></p-toast>
-
-    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-
     <form autocomplete="off" (ngSubmit)="search()">
       <div class="ui-g-12">
         <h1>Financial Entries</h1>
@@ -42,7 +38,7 @@
           <th class="col-action"></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-financialEntryRow let-financialEntry>
+      <ng-template pTemplate="body" let-financialEntry>
         <tr>
           <td>{{financialEntry.type}}</td>
           <td>{{financialEntry.entryDescription}}</td>
@@ -55,7 +51,7 @@
             <button pButton icon="fa fa-pencil" class="action-button-margin"
                     pTooltip="Edit" tooltipPosition="top"></button>
             <button pButton icon="fa fa-trash" class="action-button-margin"
-                    pTooltip="Delete" tooltipPosition="top" (click)="delete(financialEntryRow)"></button>
+                    pTooltip="Delete" tooltipPosition="top" (click)="delete(financialEntry)"></button>
           </td>
         </tr>
       </ng-template>
@@ -72,5 +68,8 @@
     <div class="ui-g-12">
       <a pButton label="New Financial Entry"></a>
     </div>
+
+    <p-toast></p-toast>
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
   </div>
 </div>

@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PersonFilter} from "../PersonFilter";
 import {PersonService} from "../person.service";
-import {LazyLoadEvent} from "primeng/api";
+import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
+import {Table} from "primeng/table";
+import {ErrorHandlerService} from "../../core/error-handler.service";
 
 @Component({
   selector: 'app-person-search',
@@ -13,7 +15,12 @@ export class PersonSearchComponent implements OnInit {
   personFilter = new PersonFilter();
   totalPeople = 0;
 
-  constructor(private personService: PersonService) {
+  @ViewChild('personTable') table: Table;
+
+  constructor(private personService: PersonService,
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService,
+              private errorHandler: ErrorHandlerService) {
   }
 
   ngOnInit(): void {
@@ -26,10 +33,24 @@ export class PersonSearchComponent implements OnInit {
         this.people = response.content;
         this.totalPeople = response.totalElements;
       })
-      .catch(error => console.log("error: ", error));
+      .catch(error => this.errorHandler.handle(error));
   }
 
   onTableLazyLoad(event: LazyLoadEvent) {
     this.search(event.first / event.rows);
+  }
+
+  delete(person: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want delete this person?',
+      accept: () => {
+        this.personService.delete(person.id)
+          .then(() => {
+            this.table.reset();
+            this.messageService.add({severity: 'success', summary: 'Person successfully deleted.'});
+          })
+          .catch(error => this.errorHandler.handle(error));
+      }
+    });
   }
 }

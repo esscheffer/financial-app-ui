@@ -3,6 +3,7 @@ import {FinancialEntryService} from "../financial-entry.service";
 import {FinancialEntryFilter} from "../financialEntryFilter";
 import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
 import {Table} from "primeng/table";
+import {ErrorHandlerService} from "../../core/error-handler.service";
 
 @Component({
   selector: 'app-financial-entry-search',
@@ -18,7 +19,8 @@ export class FinancialEntrySearchComponent implements OnInit {
 
   constructor(private financialEntryService: FinancialEntryService,
               private messageService: MessageService,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private errorHandler: ErrorHandlerService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class FinancialEntrySearchComponent implements OnInit {
         this.financialEntries = response.content;
         this.totalFinancialEntries = response.totalElements;
       })
-      .catch(error => console.log("error: ", error));
+      .catch(error => this.errorHandler.handle(error));
   }
 
   onTableLazyLoad(event: LazyLoadEvent) {
@@ -46,7 +48,8 @@ export class FinancialEntrySearchComponent implements OnInit {
           .then(() => {
             this.table.reset();
             this.messageService.add({severity: 'success', summary: 'Financial Entry successfully deleted.'});
-          });
+          })
+          .catch(error => this.errorHandler.handle(error));
       }
     });
   }
