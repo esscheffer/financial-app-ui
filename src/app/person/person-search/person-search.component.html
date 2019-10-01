@@ -33,7 +33,7 @@
           <td>{{person.address.state}}</td>
           <td>
             <a href="javascript:" pTooltip="{{person.active ? 'Deactivate' : 'Activate'}}"
-               tooltipPosition="top">
+               tooltipPosition="top" (click)="changeActiveStatus(person)">
               {{person.active ? 'Active' : 'Inactive'}}
             </a>
           </td>

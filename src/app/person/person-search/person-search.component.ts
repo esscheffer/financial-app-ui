@@ -53,4 +53,13 @@ export class PersonSearchComponent implements OnInit {
       }
     });
   }
+
+  changeActiveStatus(person: any) {
+    this.personService.setActiveStatus(person.id, !person.active)
+      .then(() => {
+        this.table.reset();
+        this.messageService.add({severity: 'success', summary: 'Person status changed successfully.'});
+      })
+      .catch(error => this.errorHandler.handle(error))
+  }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {PersonFilter} from "./PersonFilter";
 
 @Injectable({
@@ -28,5 +28,11 @@ export class PersonService {
 
   delete(id: number): Promise<any> {
     return this.httpClient.delete(`${this.personApiUrl}/${id}`).toPromise();
+  }
+
+  setActiveStatus(id: number, status: boolean): Promise<any> {
+    const headers = new HttpHeaders().append("Content-Type", "application/json");
+
+    return this.httpClient.put(`${this.personApiUrl}/${id}/active`, status, {headers}).toPromise();
   }
 }
