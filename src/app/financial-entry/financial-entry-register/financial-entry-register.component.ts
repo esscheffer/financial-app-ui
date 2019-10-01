@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {CategoryService} from "../../core/category.service";
+import {ErrorHandlerService} from "../../core/error-handler.service";
+import {PersonService} from "../../person/person.service";
 
 @Component({
   selector: 'app-financial-entry-register',
@@ -12,20 +15,22 @@ export class FinancialEntryRegisterComponent implements OnInit {
     {label: "Expense", value: "EXPENSE"}
   ];
 
-  categories = [
-    {label: "Category 1", value: 1},
-    {label: "Category 2", value: 2}
-  ];
+  categories = [];
+  people = [];
 
-  people = [
-    {label: "Person 1", value: 1},
-    {label: "Person 2", value: 2}
-  ];
-
-  constructor() {
+  constructor(private categoryService: CategoryService,
+              private errorHandler: ErrorHandlerService,
+              private personService: PersonService) {
   }
 
   ngOnInit() {
+    this.categoryService.findAll()
+      .then(response => this.categories = response.map(category => ({label: category.name, value: category.id})))
+      .catch(error => this.errorHandler.handle(error));
+
+    this.personService.findAll()
+      .then(response => this.people = response.content.map(person => ({label: person.name, value: person.ud})))
+      .catch(error => this.errorHandler.handle(error));
   }
 
 }

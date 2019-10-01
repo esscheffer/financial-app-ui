@@ -26,6 +26,10 @@ export class PersonService {
       .toPromise();
   }
 
+  findAll(): Promise<any> {
+    return this.search({name: null, page: 0, pageSize: 0})
+  }
+
   delete(id: number): Promise<any> {
     return this.httpClient.delete(`${this.personApiUrl}/${id}`).toPromise();
   }
