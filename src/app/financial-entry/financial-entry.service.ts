@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {FinancialEntryFilter} from "./financialEntryFilter";
 import * as moment from 'moment';
 import {AppConstants} from "../appConstants";
+import {FinancialEntry} from "../core/models";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,11 @@ export class FinancialEntryService {
 
   delete(id: number): Promise<any> {
     return this.httpClient.delete(`${this.financialEntryApiUrl}/${id}`).toPromise();
+  }
+
+  create(financialEntry: FinancialEntry): Promise<FinancialEntry> {
+    const headers = new HttpHeaders().append("Content-Type", "application/json");
+
+    return this.httpClient.post<FinancialEntry>(`${this.financialEntryApiUrl}`, financialEntry, {headers}).toPromise();
   }
 }
