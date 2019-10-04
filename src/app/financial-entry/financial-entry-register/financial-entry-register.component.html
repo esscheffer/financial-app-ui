@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form #financialEntryForm="ngForm" autocomplete="off" (ngSubmit)="save(financialEntryForm)">
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>New Financial Entry</h1>
@@ -66,10 +66,12 @@
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Save" class="button-margin" (click)="save()"></button>
+        <button pButton type="submit" label="Save" class="button-margin"></button>
         <button pButton type="button" label="New" class="button-margin ui-button-info"></button>
         <a href="javascript:" class="button-margin">Go back to search</a>
       </div>
     </div>
   </form>
+
+  <p-toast></p-toast>
 </div>

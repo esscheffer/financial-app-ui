@@ -4,6 +4,8 @@ import {ErrorHandlerService} from "../../core/error-handler.service";
 import {PersonService} from "../../person/person.service";
 import {FinancialEntry} from "../../core/models";
 import {FinancialEntryService} from "../financial-entry.service";
+import {NgForm} from "@angular/forms";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-financial-entry-register',
@@ -25,7 +27,8 @@ export class FinancialEntryRegisterComponent implements OnInit {
   constructor(private categoryService: CategoryService,
               private errorHandler: ErrorHandlerService,
               private personService: PersonService,
-              private financialService: FinancialEntryService) {
+              private financialService: FinancialEntryService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -38,9 +41,13 @@ export class FinancialEntryRegisterComponent implements OnInit {
       .catch(error => this.errorHandler.handle(error));
   }
 
-  save() {
+  save(form: NgForm) {
     this.financialService.create(this.financialEntry)
-      .then(financialEntry => console.log("success:", financialEntry))
+      .then(() => {
+        this.messageService.add({severity: 'success', summary: 'Financial Entry successfully created.'});
+        this.financialEntry = new FinancialEntry();
+        form.reset({type: this.financialEntry.type});
+      })
       .catch(error => this.errorHandler.handle(error))
   }
 }
