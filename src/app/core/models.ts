@@ -7,7 +7,7 @@ export class Person {
   id: number;
   name: string;
   address = new Address();
-  active: boolean;
+  active: boolean = true;
 }
 
 export class Address {

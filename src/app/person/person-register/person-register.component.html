@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form #personForm="ngForm" autocomplete="off" (ngSubmit)="save(personForm)">
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>New Person</h1>
@@ -7,8 +7,8 @@
 
       <div class="ui-g-12 ui-fluid">
         <label for="name">Name</label>
-        <input pInputText id="name" name="name"
-               ngModel #name="ngModel" required minlength="5"/>
+        <input pInputText id="name" name="name" [(ngModel)]="person.name"
+               #name="ngModel" required minlength="5"/>
         <p-message *ngIf="name.hasError('required') && name.dirty"
                    severity="error" text="Description is required."></p-message>
         <p-message *ngIf="name.hasError('minlength') && name.dirty" severity="error"
@@ -19,7 +19,7 @@
       <div class="ui-g-12 ui-md-9 ui-fluid">
         <label for="streetAddress">Street Address</label>
         <input id="streetAddress" pInputText type="text" name="streetAddress"
-               [(ngModel)]="person.streetAddress" #streetAddress="ngModel" required/>
+               [(ngModel)]="person.address.streetAddress" #streetAddress="ngModel" required/>
         <p-message *ngIf="streetAddress.hasError('required') && streetAddress.dirty"
                    severity="error" text="Street Address is required."></p-message>
       </div>
@@ -27,20 +27,20 @@
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label for="number">Number</label>
         <input pInputText id="number" type="number" name="addressNumber"
-               [(ngModel)]="person.addressNumber" #addressNumber="ngModel" required/>
+               [(ngModel)]="person.address.number" #addressNumber="ngModel" required/>
         <p-message *ngIf="addressNumber.hasError('required') && addressNumber.dirty"
                    severity="error" text="Number is required."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label for="complement">Complement</label>
-        <input pInputText id="complement" type="text" [(ngModel)]="person.complement" name="complement"/>
+        <input pInputText id="complement" type="text" [(ngModel)]="person.address.complement" name="complement"/>
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label for="neighborhood">Neighborhood</label>
         <input pInputText id="neighborhood" type="text" name="neighborhood"
-               [(ngModel)]="person.neighborhood" #neighborhood="ngModel" required/>
+               [(ngModel)]="person.address.neighborhood" #neighborhood="ngModel" required/>
         <p-message *ngIf="neighborhood.hasError('required') && neighborhood.dirty"
                    severity="error" text="Neighborhood is required."></p-message>
       </div>
@@ -49,7 +49,7 @@
         <label for="zipCode">Zip Code</label>
         <div class="ui-inputgroup">
           <p-inputMask mask="99999-999" id="zipCode" placeholder="99999-999" name="zipCode"
-                       [(ngModel)]="person.zipCode" #zipCode="ngModel" required></p-inputMask>
+                       [(ngModel)]="person.address.zipCode" #zipCode="ngModel" required></p-inputMask>
           <button pButton type="button" icon="fa fa-search" (click)="searchZipCode(zipCode.value)"></button>
         </div>
         <p-message *ngIf="zipCode.hasError('required') && zipCode.dirty"
@@ -59,7 +59,7 @@
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="city">City</label>
         <input pInputText id="city" type="text" name="city"
-               [(ngModel)]="person.city" #city="ngModel" required/>
+               [(ngModel)]="person.address.city" #city="ngModel" required/>
         <p-message *ngIf="city.hasError('required') && city.dirty"
                    severity="error" text="City is required."></p-message>
       </div>
@@ -67,7 +67,7 @@
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="state">State</label>
         <input pInputText id="state" type="text" name="state"
-               [(ngModel)]="person.state" #state="ngModel" required/>
+               [(ngModel)]="person.address.state" #state="ngModel" required/>
         <p-message *ngIf="state.hasError('required') && state.dirty"
                    severity="error" text="State is required."></p-message>
       </div>
@@ -79,4 +79,6 @@
       </div>
     </div>
   </form>
+
+  <p-toast></p-toast>
 </div>

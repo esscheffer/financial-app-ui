@@ -1,5 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Endereco, ErroCep, NgxViacepService} from "@brunoc/ngx-viacep";
+import {Endereco, ErroCep, ErrorValues, NgxViacepService} from "@brunoc/ngx-viacep";
+import {Person} from "../../core/models";
+import {NgForm} from "@angular/forms";
+import {MessageService} from "primeng/api";
+import {ErrorHandlerService} from "../../core/error-handler.service";
+import {PersonService} from "../person.service";
 
 @Component({
   selector: 'app-person-register',
@@ -8,38 +13,46 @@ import {Endereco, ErroCep, NgxViacepService} from "@brunoc/ngx-viacep";
 })
 export class PersonRegisterComponent implements OnInit {
 
-  person: Person = new Person();
+  person = new Person();
 
-  constructor(private viacep: NgxViacepService) {
+  constructor(private viacep: NgxViacepService,
+              private errorHandler: ErrorHandlerService,
+              private personService: PersonService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
   }
 
   searchZipCode(zipCode: string) {
-    let cleanZipCode: string = zipCode.replace(/\D+/g, '');
-    if (cleanZipCode && cleanZipCode.length === 8) {
-      this.viacep.buscarPorCep(cleanZipCode)
-        .then((address: Endereco) => {
-          this.person.streetAddress = address.logradouro;
-          this.person.neighborhood = address.bairro;
-          this.person.city = address.localidade;
-          this.person.state = address.uf;
-        })
-        .catch((error: ErroCep) => {
-          console.log(error.message);
-        });
+    if (zipCode) {
+      let cleanZipCode: string = zipCode.replace(/\D+/g, '');
+      if (cleanZipCode && cleanZipCode.length === 8) {
+        this.viacep.buscarPorCep(cleanZipCode)
+          .then((address: Endereco) => {
+            this.person.address.streetAddress = address.logradouro;
+            this.person.address.neighborhood = address.bairro;
+            this.person.address.city = address.localidade;
+            this.person.address.state = address.uf;
+          })
+          .catch((error: ErroCep) => {
+            if (error.getCode() === ErrorValues.CEP_NAO_ENCONTRADO) {
+              this.errorHandler.handle("Zip Code not found.");
+            } else {
+              this.errorHandler.handle("Unable to get address from Zip Code.");
+            }
+          });
+      }
     }
   }
-}
 
-class Person {
-  name: string;
-  streetAddress: string;
-  addressNumber: string;
-  complement: string;
-  neighborhood: string;
-  zipCode: string;
-  city: string;
-  state: string;
+  save(form: NgForm) {
+    this.person.address.zipCode = this.person.address.zipCode.replace(/\D+/g, '');
+    this.personService.create(this.person)
+      .then(() => {
+        this.messageService.add({severity: 'success', summary: 'Person successfully created.'});
+        this.person = new Person();
+        form.reset();
+      });
+  }
 }

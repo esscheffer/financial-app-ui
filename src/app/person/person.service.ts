@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {PersonFilter} from "./PersonFilter";
+import {Person} from "../core/models";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,11 @@ export class PersonService {
     const headers = new HttpHeaders().append("Content-Type", "application/json");
 
     return this.httpClient.put(`${this.personApiUrl}/${id}/active`, status, {headers}).toPromise();
+  }
+
+  create(person: Person): Promise<Person> {
+    const headers = new HttpHeaders().append("Content-Type", "application/json");
+
+    return this.httpClient.post<Person>(`${this.personApiUrl}`, person, {headers}).toPromise();
   }
 }
