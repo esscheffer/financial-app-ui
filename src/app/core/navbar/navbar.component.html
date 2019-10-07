@@ -9,8 +9,8 @@
 
   <ul class="navbar-menu" [hidden]="!showMenu">
     <li class="navbar-user">User name</li>
-    <li class="navbar-menuitem"><a href="#">Financial Entries</a></li>
-    <li class="navbar-menuitem"><a href="#">People</a></li>
+    <li class="navbar-menuitem" routerLinkActive="active"><a routerLink="/financialEntries">Financial Entries</a></li>
+    <li class="navbar-menuitem" routerLinkActive="active"><a routerLink="/people">People</a></li>
     <li class="navbar-menuitem"><a href="#">Logout</a></li>
   </ul>
 </nav>

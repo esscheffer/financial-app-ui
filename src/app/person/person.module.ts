@@ -10,6 +10,7 @@ import {ButtonModule, ConfirmDialogModule, InputMaskModule, TooltipModule} from 
 import {NgxViacepModule} from "@brunoc/ngx-viacep";
 import {PersonService} from "./person.service";
 import {ToastModule} from "primeng/toast";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {ToastModule} from "primeng/toast";
     InputMaskModule,
     NgxViacepModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    RouterModule
   ],
   exports: [
     PersonRegisterComponent,
