@@ -48,8 +48,8 @@
             {{financialEntry.entryValue | currency}}
           </td>
           <td class="cell-action">
-            <button pButton icon="fa fa-pencil" class="action-button-margin"
-                    pTooltip="Edit" tooltipPosition="top"></button>
+            <a pButton icon="fa fa-pencil" class="action-button-margin"
+               pTooltip="Edit" tooltipPosition="top" [routerLink]="['/financialEntries', financialEntry.id]"></a>
             <button pButton icon="fa fa-trash" class="action-button-margin"
                     pTooltip="Delete" tooltipPosition="top" (click)="delete(financialEntry)"></button>
           </td>

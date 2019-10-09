@@ -15,6 +15,11 @@ export class FinancialEntryService {
   constructor(private httpClient: HttpClient) {
   }
 
+  find(id: Number): Promise<FinancialEntry> {
+    return this.httpClient.get<any>(`${this.financialEntryApiUrl}/${id}`).toPromise()
+      .then(financialEntry => this.responseToFinancialEntry(financialEntry))
+  }
+
   search(filter: FinancialEntryFilter): Promise<any> {
     let params = new HttpParams();
 
@@ -45,5 +50,24 @@ export class FinancialEntryService {
     const headers = new HttpHeaders().append("Content-Type", "application/json");
 
     return this.httpClient.post<FinancialEntry>(`${this.financialEntryApiUrl}`, financialEntry, {headers}).toPromise();
+  }
+
+  update(financialEntry: FinancialEntry): Promise<FinancialEntry> {
+    const headers = new HttpHeaders().append("Content-Type", "application/json");
+
+    return this.httpClient.put<any>(`${this.financialEntryApiUrl}/${financialEntry.id}`, financialEntry, {headers}).toPromise()
+      .then(financialEntry => this.responseToFinancialEntry(financialEntry))
+  }
+
+  responseToFinancialEntry(financialEntry: any): FinancialEntry {
+    if (financialEntry.dueDate) {
+      financialEntry.dueDate = new Date(financialEntry.dueDate);
+    }
+
+    if (financialEntry.paymentDate) {
+      financialEntry.paymentDate = new Date(financialEntry.paymentDate);
+    }
+
+    return financialEntry
   }
 }

@@ -2,7 +2,7 @@
   <form #financialEntryForm="ngForm" autocomplete="off" (ngSubmit)="save(financialEntryForm)">
     <div class="ui-g">
       <div class="ui-g-12">
-        <h1>New Financial Entry</h1>
+        <h1>{{isEditing ? 'Editing ' : 'New '}}Financial Entry</h1>
       </div>
 
       <div class="ui-g-12">

@@ -17,6 +17,7 @@ import {RouterModule} from "@angular/router";
 const routes = [
   {path: 'financialEntries', component: FinancialEntrySearchComponent},
   {path: 'financialEntries/new', component: FinancialEntryRegisterComponent},
+  {path: 'financialEntries/:id', component: FinancialEntryRegisterComponent},
   {path: 'people', component: PersonSearchComponent},
   {path: 'people/new', component: PersonRegisterComponent}
 ];
