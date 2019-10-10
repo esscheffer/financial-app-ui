@@ -6,7 +6,8 @@ import {FinancialEntry} from "../../core/models";
 import {FinancialEntryService} from "../financial-entry.service";
 import {NgForm} from "@angular/forms";
 import {MessageService} from "primeng/api";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-financial-entry-register',
@@ -30,14 +31,21 @@ export class FinancialEntryRegisterComponent implements OnInit {
               private personService: PersonService,
               private financialEntryService: FinancialEntryService,
               private messageService: MessageService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private title: Title) {
   }
 
   ngOnInit() {
+    this.title.setTitle("New Financial Entry");
+
     let id = this.route.snapshot.params['id'];
     if (id) {
       this.financialEntryService.find(id)
-        .then(financialEntry => this.financialEntry = financialEntry)
+        .then(financialEntry => {
+          this.financialEntry = financialEntry;
+          this.title.setTitle("Edit Financial Entry");
+        })
         .catch(error => this.errorHandler.handle(error))
     }
 
@@ -78,10 +86,20 @@ export class FinancialEntryRegisterComponent implements OnInit {
     this.financialEntryService.create(this.financialEntry)
       .then(() => {
         this.messageService.add({severity: 'success', summary: 'Financial Entry successfully created.'});
-        this.financialEntry = new FinancialEntry();
-        form.reset({type: this.financialEntry.type});
+        this.resetForm(form);
       })
       .catch(error => this.errorHandler.handle(error))
+  }
+
+  newFinancialEntry(form: NgForm) {
+    this.resetForm(form);
+
+    this.router.navigate(['/financialEntries/new']);
+  }
+
+  resetForm(form: NgForm) {
+    this.financialEntry = new FinancialEntry();
+    form.reset({type: this.financialEntry.type});
   }
 
   get isEditing() {

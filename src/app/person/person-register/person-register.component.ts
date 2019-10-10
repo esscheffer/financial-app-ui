@@ -5,6 +5,7 @@ import {NgForm} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import {ErrorHandlerService} from "../../core/error-handler.service";
 import {PersonService} from "../person.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-person-register',
@@ -18,10 +19,12 @@ export class PersonRegisterComponent implements OnInit {
   constructor(private viacep: NgxViacepService,
               private errorHandler: ErrorHandlerService,
               private personService: PersonService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private title: Title) {
   }
 
   ngOnInit() {
+    this.title.setTitle("New Person");
   }
 
   searchZipCode(zipCode: string) {

@@ -31,12 +31,10 @@ import {RouterModule} from "@angular/router";
     ConfirmDialogModule,
     RouterModule
   ],
-  exports: [
-    PersonRegisterComponent,
-    PersonSearchComponent
-  ],
+  exports: [],
   providers: [
     PersonService
   ]
 })
-export class PersonModule { }
+export class PersonModule {
+}

@@ -4,6 +4,7 @@ import {PersonService} from "../person.service";
 import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
 import {Table} from "primeng/table";
 import {ErrorHandlerService} from "../../core/error-handler.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-person-search',
@@ -20,10 +21,12 @@ export class PersonSearchComponent implements OnInit {
   constructor(private personService: PersonService,
               private messageService: MessageService,
               private confirmationService: ConfirmationService,
-              private errorHandler: ErrorHandlerService) {
+              private errorHandler: ErrorHandlerService,
+              private title: Title) {
   }
 
   ngOnInit(): void {
+    this.title.setTitle("Person Search");
   }
 
   search(page = 0) {

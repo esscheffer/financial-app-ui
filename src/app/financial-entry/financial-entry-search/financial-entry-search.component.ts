@@ -4,6 +4,7 @@ import {FinancialEntryFilter} from "../financialEntryFilter";
 import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
 import {Table} from "primeng/table";
 import {ErrorHandlerService} from "../../core/error-handler.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-financial-entry-search',
@@ -20,10 +21,12 @@ export class FinancialEntrySearchComponent implements OnInit {
   constructor(private financialEntryService: FinancialEntryService,
               private messageService: MessageService,
               private confirmationService: ConfirmationService,
-              private errorHandler: ErrorHandlerService) {
+              private errorHandler: ErrorHandlerService,
+              private title: Title) {
   }
 
   ngOnInit(): void {
+    this.title.setTitle("Financial Entry Search");
   }
 
   search(page = 0) {

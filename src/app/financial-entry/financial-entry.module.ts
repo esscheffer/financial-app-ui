@@ -18,7 +18,7 @@ import {TableModule} from "primeng/table";
 import {CurrencyMaskModule} from "ng2-currency-mask";
 import {FinancialEntryService} from "./financial-entry.service";
 import {ToastModule} from "primeng/toast";
-import {RouterModule} from "@angular/router";
+import {FinancialEntryRoutingModule} from "./financial-entry-routing.module";
 
 @NgModule({
   declarations: [
@@ -40,12 +40,9 @@ import {RouterModule} from "@angular/router";
     TooltipModule,
     ToastModule,
     ConfirmDialogModule,
-    RouterModule
+    FinancialEntryRoutingModule
   ],
-  exports: [
-    FinancialEntryRegisterComponent,
-    FinancialEntrySearchComponent
-  ],
+  exports: [],
   providers: [
     FinancialEntryService
   ]
