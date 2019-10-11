@@ -6,6 +6,7 @@ import {MessageService} from "primeng/api";
 import {ErrorHandlerService} from "../../core/error-handler.service";
 import {PersonService} from "../person.service";
 import {Title} from "@angular/platform-browser";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-person-register',
@@ -20,11 +21,23 @@ export class PersonRegisterComponent implements OnInit {
               private errorHandler: ErrorHandlerService,
               private personService: PersonService,
               private messageService: MessageService,
-              private title: Title) {
+              private title: Title,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.title.setTitle("New Person");
+
+    let id = this.route.snapshot.params['id'];
+    if (id) {
+      this.personService.find(id)
+        .then(person => {
+          this.person = person;
+          this.title.setTitle("Edit Person");
+        })
+        .catch(error => this.errorHandler.handle(error))
+    }
   }
 
   searchZipCode(zipCode: string) {
@@ -50,6 +63,14 @@ export class PersonRegisterComponent implements OnInit {
   }
 
   save(form: NgForm) {
+    if (this.person.id) {
+      this.updatePerson()
+    } else {
+      this.createPerson(form);
+    }
+  }
+
+  createPerson(form: NgForm) {
     this.person.address.zipCode = this.person.address.zipCode.replace(/\D+/g, '');
     this.personService.create(this.person)
       .then(() => {
@@ -57,5 +78,25 @@ export class PersonRegisterComponent implements OnInit {
         this.person = new Person();
         form.reset();
       });
+  }
+
+  updatePerson() {
+    this.personService.update(this.person)
+      .then(person => {
+        this.person = person;
+        this.messageService.add({severity: 'success', summary: 'Person updated successfully.'});
+      })
+      .catch(error => this.errorHandler.handle(error))
+  }
+
+  newPerson(form: NgForm) {
+    this.resetForm(form);
+
+    this.router.navigate(['/people/new']);
+  }
+
+  resetForm(form: NgForm) {
+    this.person = new Person();
+    form.reset();
   }
 }

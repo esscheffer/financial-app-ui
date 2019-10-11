@@ -15,7 +15,7 @@ export class FinancialEntryService {
   constructor(private httpClient: HttpClient) {
   }
 
-  find(id: Number): Promise<FinancialEntry> {
+  find(id: number): Promise<FinancialEntry> {
     return this.httpClient.get<any>(`${this.financialEntryApiUrl}/${id}`).toPromise()
       .then(financialEntry => this.responseToFinancialEntry(financialEntry))
   }

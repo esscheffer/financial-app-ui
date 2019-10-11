@@ -27,12 +27,22 @@ export class PersonService {
       .toPromise();
   }
 
+  find(id: number) {
+    return this.httpClient.get<any>(`${this.personApiUrl}/${id}`).toPromise()
+  }
+
   findAll(): Promise<any> {
     return this.search({name: null, page: 0, pageSize: 0})
   }
 
   delete(id: number): Promise<any> {
     return this.httpClient.delete(`${this.personApiUrl}/${id}`).toPromise();
+  }
+
+  update(person: Person): Promise<Person> {
+    const headers = new HttpHeaders().append("Content-Type", "application/json");
+
+    return this.httpClient.put<any>(`${this.personApiUrl}/${person.id}`, person, {headers}).toPromise()
   }
 
   setActiveStatus(id: number, status: boolean): Promise<any> {
