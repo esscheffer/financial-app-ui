@@ -31,3 +31,24 @@ export class FinancialEntry {
   category: Category = new Category();
   person: Person = new Person();
 }
+
+export class PersonList {
+  content: Person[];
+  totalElements: number;
+}
+
+export class FinancialEntrySummary {
+  id: number;
+  entryDescription: string;
+  dueDate: number[];
+  paymentDate: number[];
+  entryValue: number;
+  type: string;
+  category: string;
+  person: string;
+}
+
+export class FinancialEntrySummaryList {
+  content: FinancialEntrySummary[];
+  totalElements: number;
+}

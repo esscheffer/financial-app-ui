@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Category} from "./models";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CategoryService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findAll(): Promise<any> {
-    return this.httpClient.get(this.categoryApiUrl).toPromise()
+  findAll(): Promise<Category[]> {
+    return this.httpClient.get<Category[]>(this.categoryApiUrl).toPromise()
   }
 }

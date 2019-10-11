@@ -5,6 +5,7 @@ import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
 import {Table} from "primeng/table";
 import {ErrorHandlerService} from "../../core/error-handler.service";
 import {Title} from "@angular/platform-browser";
+import {Person} from "../../core/models";
 
 @Component({
   selector: 'app-person-search',
@@ -43,7 +44,7 @@ export class PersonSearchComponent implements OnInit {
     this.search(event.first / event.rows);
   }
 
-  delete(person: any) {
+  delete(person: Person) {
     this.confirmationService.confirm({
       message: 'Are you sure that you want delete this person?',
       accept: () => {
@@ -57,7 +58,7 @@ export class PersonSearchComponent implements OnInit {
     });
   }
 
-  changeActiveStatus(person: any) {
+  changeActiveStatus(person: Person) {
     this.personService.setActiveStatus(person.id, !person.active)
       .then(() => {
         this.table.reset();

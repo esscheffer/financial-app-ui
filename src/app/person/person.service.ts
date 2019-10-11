@@ -1,19 +1,20 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {PersonFilter} from "./PersonFilter";
-import {Person} from "../core/models";
+import {Person, PersonList} from "../core/models";
+import {AppConstants} from "../appConstants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  personApiUrl = 'http://localhost:8081/people';
+  personApiUrl = `${AppConstants.apiUrl}/people`;
 
   constructor(private httpClient: HttpClient) {
   }
 
-  search(filter: PersonFilter): Promise<any> {
+  search(filter: PersonFilter): Promise<PersonList> {
     let params = new HttpParams();
 
     if (filter.name) {
@@ -23,15 +24,15 @@ export class PersonService {
     params = params.set('page', filter.page.toString());
     params = params.set('size', filter.pageSize.toString());
 
-    return this.httpClient.get(`${this.personApiUrl}`, {params})
+    return this.httpClient.get<PersonList>(`${this.personApiUrl}`, {params})
       .toPromise();
   }
 
   find(id: number) {
-    return this.httpClient.get<any>(`${this.personApiUrl}/${id}`).toPromise()
+    return this.httpClient.get<Person>(`${this.personApiUrl}/${id}`).toPromise()
   }
 
-  findAll(): Promise<any> {
+  findAll(): Promise<PersonList> {
     return this.search({name: null, page: 0, pageSize: 0})
   }
 
@@ -42,7 +43,7 @@ export class PersonService {
   update(person: Person): Promise<Person> {
     const headers = new HttpHeaders().append("Content-Type", "application/json");
 
-    return this.httpClient.put<any>(`${this.personApiUrl}/${person.id}`, person, {headers}).toPromise()
+    return this.httpClient.put<Person>(`${this.personApiUrl}/${person.id}`, person, {headers}).toPromise()
   }
 
   setActiveStatus(id: number, status: boolean): Promise<any> {

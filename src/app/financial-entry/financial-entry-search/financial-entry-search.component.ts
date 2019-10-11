@@ -5,6 +5,7 @@ import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
 import {Table} from "primeng/table";
 import {ErrorHandlerService} from "../../core/error-handler.service";
 import {Title} from "@angular/platform-browser";
+import {FinancialEntrySummary} from "../../core/models";
 
 @Component({
   selector: 'app-financial-entry-search',
@@ -12,7 +13,7 @@ import {Title} from "@angular/platform-browser";
   styleUrls: ['./financial-entry-search.component.css']
 })
 export class FinancialEntrySearchComponent implements OnInit {
-  financialEntries = [];
+  financialEntries: FinancialEntrySummary[] = [];
   financialEntryFilter = new FinancialEntryFilter();
   totalFinancialEntries = 0;
 
@@ -43,7 +44,7 @@ export class FinancialEntrySearchComponent implements OnInit {
     this.search(event.first / event.rows);
   }
 
-  delete(financialEntry: any) {
+  delete(financialEntry: FinancialEntrySummary) {
     this.confirmationService.confirm({
       message: 'Are you sure that you want delete this financial entry?',
       accept: () => {

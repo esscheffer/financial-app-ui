@@ -3,14 +3,14 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {FinancialEntryFilter} from "./financialEntryFilter";
 import * as moment from 'moment';
 import {AppConstants} from "../appConstants";
-import {FinancialEntry} from "../core/models";
+import {FinancialEntry, FinancialEntrySummaryList} from "../core/models";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FinancialEntryService {
 
-  financialEntryApiUrl = 'http://localhost:8081/financialEntries';
+  financialEntryApiUrl = `${AppConstants.apiUrl}/financialEntries`;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -20,7 +20,7 @@ export class FinancialEntryService {
       .then(financialEntry => this.responseToFinancialEntry(financialEntry))
   }
 
-  search(filter: FinancialEntryFilter): Promise<any> {
+  search(filter: FinancialEntryFilter): Promise<FinancialEntrySummaryList> {
     let params = new HttpParams();
 
     if (filter.description) {
@@ -38,7 +38,7 @@ export class FinancialEntryService {
     params = params.set('page', filter.page.toString());
     params = params.set('size', filter.pageSize.toString());
 
-    return this.httpClient.get(`${this.financialEntryApiUrl}?summary`, {params})
+    return this.httpClient.get<FinancialEntrySummaryList>(`${this.financialEntryApiUrl}?summary`, {params})
       .toPromise();
   }
 
