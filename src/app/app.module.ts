@@ -23,8 +23,8 @@ import {ToastModule} from "primeng/toast";
     PersonModule,
     HttpClientModule,
     CoreModule,
-    AppRoutingModule,
     SecurityModule,
+    AppRoutingModule,
     ToastModule
   ],
   providers: [
