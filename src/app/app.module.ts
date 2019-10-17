@@ -8,11 +8,13 @@ import {PersonModule} from "./person/person.module";
 import {HttpClientModule} from "@angular/common/http";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {CoreModule} from "./core/core.module";
-import {AppRoutingModule} from "./app-routing.module.ts";
+import {AppRoutingModule} from "./app-routing.module";
+import {SecurityModule} from "./security/security.module";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,9 @@ import {AppRoutingModule} from "./app-routing.module.ts";
     PersonModule,
     HttpClientModule,
     CoreModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SecurityModule,
+    ToastModule
   ],
   providers: [
     MessageService,
@@ -29,6 +33,5 @@ import {AppRoutingModule} from "./app-routing.module.ts";
   ],
   bootstrap: [AppComponent]
 })
-
 export class AppModule {
 }

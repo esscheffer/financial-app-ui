@@ -5,13 +5,12 @@ import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.compon
 const routes: Routes = [
   {path: '', redirectTo: 'financialEntries', pathMatch: 'full'},
   {path: 'pageNotFound', component: PageNotFoundComponent},
-  {path: '**', redirectTo: 'pageNotFound'}
+  {path: '**', redirectTo: 'pageNotFound'},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-
 export class AppRoutingModule {
 }

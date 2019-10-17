@@ -36,6 +36,5 @@ import {PersonRoutingModule} from "./person-routing.module";
     PersonService
   ]
 })
-
 export class PersonModule {
 }
