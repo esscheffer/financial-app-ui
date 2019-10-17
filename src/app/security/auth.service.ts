@@ -12,7 +12,7 @@ export class AuthService {
   jwtPayload: any;
 
   constructor(private httpClient: HttpClient,
-              private jwtHelper: JwtHelperService) {
+              private jwtHelper: JwtHelperService,) {
     this.loadToken();
   }
 
@@ -37,12 +37,16 @@ export class AuthService {
       });
   }
 
-  storeToken(token: string) {
+  hasPermission(permission: string) {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
+  }
+
+  private storeToken(token: string) {
     this.jwtPayload = this.jwtHelper.decodeToken(token);
     localStorage.setItem('token', token);
   }
 
-  loadToken() {
+  private loadToken() {
     const token = localStorage.getItem('token');
 
     if (token) {
