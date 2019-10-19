@@ -22,7 +22,7 @@ export class AuthService {
       .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
     const body = `username=${user}&password=${password}&grant_type=password`;
 
-    return this.httpClient.post<any>(this.authUrl, body, {headers})
+    return this.httpClient.post<any>(this.authUrl, body, {headers, withCredentials: true})
       .toPromise()
       .then(response => this.storeToken(response.access_token))
       .catch(response => {
@@ -39,6 +39,28 @@ export class AuthService {
 
   hasPermission(permission: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
+  }
+
+  refreshToken(): Promise<any> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+    const body = 'grant_type=refresh_token';
+
+    return this.httpClient.post<any>(this.authUrl, body, {headers, withCredentials: true})
+      .toPromise()
+      .then(response => {
+        this.storeToken(response.access_token);
+        return Promise.resolve(null);
+      })
+      .catch(() => {
+        return Promise.resolve(null);
+      });
+  }
+
+  isAccessTokenValid() {
+    const token = localStorage.getItem('token');
+    return !token || this.jwtHelper.isTokenExpired(token);
   }
 
   private storeToken(token: string) {
