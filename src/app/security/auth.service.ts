@@ -9,6 +9,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 export class AuthService {
 
   authUrl = `${AppConstants.apiUrl}/oauth/token`;
+  tokensRevokeUrl = `${AppConstants.apiUrl}/tokens/revoke`;
   jwtPayload: any;
 
   constructor(private httpClient: HttpClient,
@@ -35,6 +36,19 @@ export class AuthService {
 
         return Promise.reject(response);
       });
+  }
+
+  logout() {
+    return this.httpClient.delete(this.tokensRevokeUrl, { withCredentials: true })
+      .toPromise()
+      .then(() => {
+        this.clearAccessToken();
+      });
+  }
+
+  clearAccessToken() {
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
   }
 
   hasPermission(permission: string) {
