@@ -62,7 +62,7 @@ export class AuthService {
       });
   }
 
-  isAccessTokenValid() {
+  isAccessTokenInvalid() {
     const token = localStorage.getItem('token');
     return !token || this.jwtHelper.isTokenExpired(token);
   }

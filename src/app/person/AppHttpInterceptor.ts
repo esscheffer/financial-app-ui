@@ -4,6 +4,9 @@ import {from, Observable} from "rxjs";
 import {AuthService} from "../security/auth.service";
 import {mergeMap} from "rxjs/operators";
 
+export class NotAuthenticatedError {
+}
+
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
 
@@ -11,11 +14,14 @@ export class AppHttpInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!req.url.includes('/oauth/token') && this.auth.isAccessTokenValid()) {
+    if (!req.url.includes('/oauth/token') && this.auth.isAccessTokenInvalid()) {
 
       return from(this.auth.refreshToken())
         .pipe(
           mergeMap(() => {
+            if (this.auth.isAccessTokenInvalid()) {
+              throw new NotAuthenticatedError();
+            }
             req = req.clone({setHeaders: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
             return next.handle(req);
           })
