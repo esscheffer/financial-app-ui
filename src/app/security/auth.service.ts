@@ -41,6 +41,10 @@ export class AuthService {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
   }
 
+  hasAnyPermission(roles: string[]) {
+    return roles.some(role => this.hasPermission(role))
+  }
+
   refreshToken(): Promise<any> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
