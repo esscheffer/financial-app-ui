@@ -4,15 +4,17 @@ import {FinancialEntryFilter} from "./financialEntryFilter";
 import * as moment from 'moment';
 import {AppConstants} from "../appConstants";
 import {FinancialEntry, FinancialEntrySummaryList} from "../core/models";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FinancialEntryService {
 
-  financialEntryApiUrl = `${AppConstants.apiUrl}/financialEntries`;
+  financialEntryApiUrl: string;
 
   constructor(private httpClient: HttpClient) {
+    this.financialEntryApiUrl = `${environment.apiUrl}/financialEntries`;
   }
 
   find(id: number): Promise<FinancialEntry> {

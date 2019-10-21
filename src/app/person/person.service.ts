@@ -2,16 +2,17 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {PersonFilter} from "./PersonFilter";
 import {Person, PersonList} from "../core/models";
-import {AppConstants} from "../appConstants";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  personApiUrl = `${AppConstants.apiUrl}/people`;
+  personApiUrl: string;
 
   constructor(private httpClient: HttpClient) {
+    this.personApiUrl = `${environment.apiUrl}/people`;
   }
 
   search(filter: PersonFilter): Promise<PersonList> {

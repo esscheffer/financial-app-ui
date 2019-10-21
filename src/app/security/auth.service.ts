@@ -1,19 +1,21 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AppConstants} from "../appConstants";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  authUrl = `${AppConstants.apiUrl}/oauth/token`;
-  tokensRevokeUrl = `${AppConstants.apiUrl}/tokens/revoke`;
+  authUrl: string;
+  tokensRevokeUrl: string;
   jwtPayload: any;
 
   constructor(private httpClient: HttpClient,
               private jwtHelper: JwtHelperService,) {
+    this.authUrl = `${environment.apiUrl}/oauth/token`;
+    this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`;
     this.loadToken();
   }
 
@@ -39,7 +41,7 @@ export class AuthService {
   }
 
   logout() {
-    return this.httpClient.delete(this.tokensRevokeUrl, { withCredentials: true })
+    return this.httpClient.delete(this.tokensRevokeUrl, {withCredentials: true})
       .toPromise()
       .then(() => {
         this.clearAccessToken();
