@@ -29,7 +29,9 @@
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -86,7 +88,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

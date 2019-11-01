@@ -11,6 +11,7 @@ import {CoreModule} from "./core/core.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {SecurityModule} from "./security/security.module";
 import {ToastModule} from "primeng/toast";
+import {DashboardModule} from "./dashboard/dashboard.module";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {ToastModule} from "primeng/toast";
     BrowserAnimationsModule,
     FinancialEntryModule,
     PersonModule,
+    DashboardModule,
     HttpClientModule,
     CoreModule,
     SecurityModule,

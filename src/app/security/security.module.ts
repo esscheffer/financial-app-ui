@@ -7,7 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
 import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {AppHttpInterceptor} from "../person/AppHttpInterceptor";
+import {AppHttpInterceptor} from "./AppHttpInterceptor";
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
