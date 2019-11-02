@@ -2,7 +2,7 @@
   <form #personForm="ngForm" autocomplete="off" (ngSubmit)="save(personForm)">
     <div class="ui-g">
       <div class="ui-g-12">
-        <h1>New Person</h1>
+        <h1>{{isEditing ? 'Editing' : 'New'}} Person</h1>
       </div>
 
       <div class="ui-g-12 ui-fluid">
@@ -70,6 +70,12 @@
                [(ngModel)]="person.address.state" #state="ngModel" required/>
         <p-message *ngIf="state.hasError('required') && state.dirty"
                    severity="error" text="State is required."></p-message>
+      </div>
+
+      <div class="ui-g-12">
+        <p-panel header="Contacts">
+          <app-person-contact-register [contacts]="person.contacts"></app-person-contact-register>
+        </p-panel>
       </div>
 
       <div class="ui-g-12">

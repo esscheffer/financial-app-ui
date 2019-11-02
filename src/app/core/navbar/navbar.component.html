@@ -15,6 +15,9 @@
     <li class="navbar-menuitem" routerLinkActive="active"
         *ngIf="auth.hasPermission('ROLE_SEARCH_PERSON')">
       <a routerLink="/people">People</a></li>
+    <li class="navbar-menuitem" routerLinkActive="active"
+        *ngIf="auth.hasPermission('ROLE_SEARCH_FINANCIAL_ENTRY')">
+      <a routerLink="/dashboard">Dashboard</a></li>
     <li class="navbar-menuitem">
       <a href="javascript:" (click)="logout()">Logout</a>
     </li>

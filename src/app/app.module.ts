@@ -20,9 +20,9 @@ import {DashboardModule} from "./dashboard/dashboard.module";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    DashboardModule,
     FinancialEntryModule,
     PersonModule,
-    DashboardModule,
     HttpClientModule,
     CoreModule,
     SecurityModule,

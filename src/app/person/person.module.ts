@@ -6,16 +6,25 @@ import {MessageModule} from "primeng/message";
 import {FormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
-import {ButtonModule, ConfirmDialogModule, InputMaskModule, TooltipModule} from "primeng/primeng";
+import {
+  ButtonModule,
+  ConfirmDialogModule,
+  DialogModule,
+  InputMaskModule,
+  PanelModule,
+  TooltipModule
+} from "primeng/primeng";
 import {NgxViacepModule} from "@brunoc/ngx-viacep";
 import {PersonService} from "./person.service";
 import {ToastModule} from "primeng/toast";
 import {PersonRoutingModule} from "./person-routing.module";
+import {PersonContactRegisterComponent} from './person-contact-register/person-contact-register.component';
 
 @NgModule({
   declarations: [
     PersonRegisterComponent,
     PersonSearchComponent,
+    PersonContactRegisterComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +38,9 @@ import {PersonRoutingModule} from "./person-routing.module";
     NgxViacepModule,
     ToastModule,
     ConfirmDialogModule,
-    PersonRoutingModule
+    PersonRoutingModule,
+    PanelModule,
+    DialogModule
   ],
   exports: [],
   providers: [

@@ -70,17 +70,21 @@ export class PersonRegisterComponent implements OnInit {
     }
   }
 
-  createPerson(form: NgForm) {
+  newPerson(form: NgForm) {
+    this.resetForm(form);
+    this.router.navigate(['/people/new']);
+  }
+
+  private createPerson(form: NgForm) {
     this.person.address.zipCode = this.person.address.zipCode.replace(/\D+/g, '');
     this.personService.create(this.person)
       .then(() => {
         this.messageService.add({severity: 'success', summary: 'Person successfully created.'});
-        this.person = new Person();
-        form.reset();
+        this.resetForm(form);
       });
   }
 
-  updatePerson() {
+  private updatePerson() {
     this.personService.update(this.person)
       .then(person => {
         this.person = person;
@@ -89,14 +93,12 @@ export class PersonRegisterComponent implements OnInit {
       .catch(error => this.errorHandler.handle(error))
   }
 
-  newPerson(form: NgForm) {
-    this.resetForm(form);
-
-    this.router.navigate(['/people/new']);
-  }
-
-  resetForm(form: NgForm) {
+  private resetForm(form: NgForm) {
     this.person = new Person();
     form.reset();
+  }
+
+  get isEditing() {
+    return Boolean(this.person.id)
   }
 }

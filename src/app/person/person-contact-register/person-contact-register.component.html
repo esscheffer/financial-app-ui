@@ -1,0 +1,74 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <button pButton label="New" icon="fa fa-plus" class="ui-button-secondary"
+            (click)="prepareNewContact()" type="button"></button>
+  </div>
+  <div class="ui-g-12">
+    <p-table [value]="contacts" [responsive]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>E-mail</th>
+          <th>Telephone</th>
+          <th class="col-action"></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-contact let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ contact.name }}</td>
+          <td>{{ contact.email }}</td>
+          <td>{{ contact.phoneNumber }}</td>
+          <td class="cell-action">
+            <button pButton icon="fa fa-pencil" class="action-button-margin"
+                    pTooltip="Edit" tooltipPosition="top" type="button"
+                    (click)="prepareEditContact(contact, rowIndex)"></button>
+            <button pButton icon="fa fa-trash" class="action-button-margin"
+                    pTooltip="Delete" tooltipPosition="top" type="button"
+                    (click)="removeContact(rowIndex)"></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4">
+            No contact registered.
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-dialog header="{{isEditing ? 'Editing' : 'New'}} Contact" [(visible)]="showContactFormDialog" modal="true">
+  <form #formContact="ngForm" (submit)="confirmContact(formContact)">
+    <div class="ui-g-12 ui-fluid">
+      <label for="contactName">Name</label>
+      <input id="contactName" pInputText type="text" name="contactName"
+             required [(ngModel)]="contact.name" #contactName="ngModel"/>
+      <p-message *ngIf="contactName.hasError('required') && contactName.dirty"
+                 severity="error" text="Name is required."></p-message>
+    </div>
+
+    <div class="ui-g-12 ui-fluid">
+      <label for="contactEmail">E-mail</label>
+      <input id="contactEmail" pInputText type="text" name="contactEmail"
+             required email [(ngModel)]="contact.email" #contactEmail="ngModel"/>
+      <p-message *ngIf="contactEmail.hasError('required') && contactEmail.dirty"
+                 severity="error" text="E-mail is required."></p-message>
+      <p-message *ngIf="contactEmail.hasError('email') && contactEmail.dirty"
+                 severity="error" text="Inform a valid e-mail."></p-message>
+    </div>
+
+    <div class="ui-g-12 ui-fluid">
+      <label>Phone number</label>
+      <p-inputMask name="contactPhone" [(ngModel)]="contact.phoneNumber"
+                   mask="(99) 99999-999?9"></p-inputMask>
+    </div>
+
+    <div class="ui-g-12 ui-fluid">
+      <button pButton type="submit" label="Confirm" [disabled]="formContact.invalid"></button>
+    </div>
+  </form>
+</p-dialog>

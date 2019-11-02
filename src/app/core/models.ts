@@ -8,6 +8,14 @@ export class Person {
   name: string;
   address = new Address();
   active: boolean = true;
+  contacts: Contact[] = [];
+}
+
+export class Contact {
+  id: number;
+  email: string;
+  name: string;
+  phoneNumber: string;
 }
 
 export class Address {
