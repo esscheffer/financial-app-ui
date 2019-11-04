@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {PersonFilter} from "./PersonFilter";
-import {Person, PersonList} from "../core/models";
+import {City, Person, PersonList, State} from "../core/models";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -10,9 +10,13 @@ import {environment} from "../../environments/environment";
 export class PersonService {
 
   personApiUrl: string;
+  stateUrl: string;
+  cityUrl: string;
 
   constructor(private httpClient: HttpClient) {
     this.personApiUrl = `${environment.apiUrl}/people`;
+    this.stateUrl = `${environment.apiUrl}/states`;
+    this.cityUrl = `${environment.apiUrl}/cities`;
   }
 
   search(filter: PersonFilter): Promise<PersonList> {
@@ -57,5 +61,14 @@ export class PersonService {
     const headers = new HttpHeaders().append("Content-Type", "application/json");
 
     return this.httpClient.post<Person>(`${this.personApiUrl}`, person, {headers}).toPromise();
+  }
+
+  listStates(): Promise<State[]> {
+    return this.httpClient.get<State[]>(this.stateUrl).toPromise();
+  }
+
+  listCities(stateId): Promise<City[]> {
+    return this.httpClient.get<City[]>(this.cityUrl, {params: new HttpParams().set('state', stateId)})
+      .toPromise();
   }
 }

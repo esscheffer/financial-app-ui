@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Endereco, ErroCep, ErrorValues, NgxViacepService} from "@brunoc/ngx-viacep";
 import {Person} from "../../core/models";
 import {NgForm} from "@angular/forms";
 import {MessageService} from "primeng/api";
@@ -16,9 +15,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class PersonRegisterComponent implements OnInit {
 
   person = new Person();
+  states = [];
+  cities = [];
+  selectedState: number;
 
-  constructor(private viacep: NgxViacepService,
-              private errorHandler: ErrorHandlerService,
+  constructor(private errorHandler: ErrorHandlerService,
               private personService: PersonService,
               private messageService: MessageService,
               private title: Title,
@@ -34,32 +35,29 @@ export class PersonRegisterComponent implements OnInit {
       this.personService.find(id)
         .then(person => {
           this.person = person;
+          this.selectedState = this.person.address.city ? this.person.address.city.state.id : null;
+          if (this.selectedState) {
+            this.loadCities();
+          }
+
           this.title.setTitle("Edit Person");
         })
         .catch(error => this.errorHandler.handle(error))
     }
+
+    this.loadStates();
   }
 
-  searchZipCode(zipCode: string) {
-    if (zipCode) {
-      let cleanZipCode: string = zipCode.replace(/\D+/g, '');
-      if (cleanZipCode && cleanZipCode.length === 8) {
-        this.viacep.buscarPorCep(cleanZipCode)
-          .then((address: Endereco) => {
-            this.person.address.streetAddress = address.logradouro;
-            this.person.address.neighborhood = address.bairro;
-            this.person.address.city = address.localidade;
-            this.person.address.state = address.uf;
-          })
-          .catch((error: ErroCep) => {
-            if (error.getCode() === ErrorValues.CEP_NAO_ENCONTRADO) {
-              this.errorHandler.handle("Zip Code not found.");
-            } else {
-              this.errorHandler.handle("Unable to get address from Zip Code.");
-            }
-          });
-      }
-    }
+  loadStates() {
+    this.personService.listStates()
+      .then(states => this.states = states.map(state => ({label: state.stateName, value: state.id})))
+      .catch(error => this.errorHandler.handle(error));
+  }
+
+  loadCities() {
+    this.personService.listCities(this.selectedState)
+      .then(cities => this.cities = cities.map(city => ({label: city.cityName, value: city.id})))
+      .catch(error => this.errorHandler.handle(error));
   }
 
   save(form: NgForm) {
@@ -78,9 +76,9 @@ export class PersonRegisterComponent implements OnInit {
   private createPerson(form: NgForm) {
     this.person.address.zipCode = this.person.address.zipCode.replace(/\D+/g, '');
     this.personService.create(this.person)
-      .then(() => {
+      .then(addedPerson => {
         this.messageService.add({severity: 'success', summary: 'Person successfully created.'});
-        this.resetForm(form);
+        this.router.navigate(['/people', addedPerson.id])
       });
   }
 

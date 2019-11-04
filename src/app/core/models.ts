@@ -3,6 +3,17 @@ export class Category {
   name: string;
 }
 
+export class State {
+  id: number;
+  stateName: string;
+}
+
+export class City {
+  id: number;
+  cityName: string;
+  state = new State();
+}
+
 export class Person {
   id: number;
   name: string;
@@ -24,8 +35,7 @@ export class Address {
   complement: string;
   neighborhood: string;
   zipCode: string;
-  city: string;
-  state: string;
+  city = new City();
 }
 
 export class FinancialEntry {

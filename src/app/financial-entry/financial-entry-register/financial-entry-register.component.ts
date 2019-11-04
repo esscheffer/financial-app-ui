@@ -84,9 +84,9 @@ export class FinancialEntryRegisterComponent implements OnInit {
 
   createFinancialEntry(form: NgForm) {
     this.financialEntryService.create(this.financialEntry)
-      .then(() => {
+      .then(addedFinancialEntry => {
         this.messageService.add({severity: 'success', summary: 'Financial Entry successfully created.'});
-        this.resetForm(form);
+        this.router.navigate(['/financialEntries', addedFinancialEntry.id]);
       })
       .catch(error => this.errorHandler.handle(error))
   }

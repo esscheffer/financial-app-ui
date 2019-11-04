@@ -50,26 +50,27 @@
         <div class="ui-inputgroup">
           <p-inputMask mask="99999-999" id="zipCode" placeholder="99999-999" name="zipCode"
                        [(ngModel)]="person.address.zipCode" #zipCode="ngModel" required></p-inputMask>
-          <button pButton type="button" icon="fa fa-search" (click)="searchZipCode(zipCode.value)"></button>
         </div>
         <p-message *ngIf="zipCode.hasError('required') && zipCode.dirty"
                    severity="error" text="Zip Code is required."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
-        <label for="city">City</label>
-        <input pInputText id="city" type="text" name="city"
-               [(ngModel)]="person.address.city" #city="ngModel" required/>
-        <p-message *ngIf="city.hasError('required') && city.dirty"
-                   severity="error" text="City is required."></p-message>
+        <label for="state">State</label>
+        <p-dropdown id="state" placeholder="Select..." [autoWidth]="true" [filter]="true"
+                    [options]="states" [(ngModel)]="selectedState" name="selectedState"
+                    (onChange)="loadCities()" #state="ngModel" required></p-dropdown>
+        <p-message *ngIf="state.hasError('required') && state.dirty"
+                   severity="error" text="State is required."></p-message>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
-        <label for="state">State</label>
-        <input pInputText id="state" type="text" name="state"
-               [(ngModel)]="person.address.state" #state="ngModel" required/>
-        <p-message *ngIf="state.hasError('required') && state.dirty"
-                   severity="error" text="State is required."></p-message>
+        <label for="city">City</label>
+        <p-dropdown id="city" placeholder="Select..." [autoWidth]="true" [filter]="true"
+                    [options]="cities" [(ngModel)]="person.address.city.id" name="city"
+                    #city="ngModel" required [disabled]="!selectedState"></p-dropdown>
+        <p-message *ngIf="city.hasError('required') && city.dirty"
+                   severity="error" text="City is required."></p-message>
       </div>
 
       <div class="ui-g-12">
@@ -79,7 +80,7 @@
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Save" class="button-margin"></button>
+        <button pButton type="submit" label="Save" class="button-margin" [disabled]="!personForm.valid"></button>
         <button pButton type="button" label="New" class="button-margin ui-button-info"
                 (click)="newPerson(personForm)"></button>
         <a href="javascript:" class="button-margin" routerLink="/people">Go back to search</a>

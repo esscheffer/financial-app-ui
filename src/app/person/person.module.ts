@@ -10,11 +10,11 @@ import {
   ButtonModule,
   ConfirmDialogModule,
   DialogModule,
+  DropdownModule,
   InputMaskModule,
   PanelModule,
   TooltipModule
 } from "primeng/primeng";
-import {NgxViacepModule} from "@brunoc/ngx-viacep";
 import {PersonService} from "./person.service";
 import {ToastModule} from "primeng/toast";
 import {PersonRoutingModule} from "./person-routing.module";
@@ -35,12 +35,12 @@ import {PersonContactRegisterComponent} from './person-contact-register/person-c
     TooltipModule,
     ButtonModule,
     InputMaskModule,
-    NgxViacepModule,
     ToastModule,
     ConfirmDialogModule,
     PersonRoutingModule,
     PanelModule,
-    DialogModule
+    DialogModule,
+    DropdownModule
   ],
   exports: [],
   providers: [

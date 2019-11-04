@@ -66,7 +66,7 @@
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Save" class="button-margin"></button>
+        <button pButton type="submit" label="Save" class="button-margin" [disabled]="!financialEntryForm.valid"></button>
         <button pButton type="button" label="New" class="button-margin ui-button-info"
                 (click)="newFinancialEntry(financialEntryForm)"></button>
         <a href="javascript:" class="button-margin" routerLink="/financialEntries">Go back to search</a>
