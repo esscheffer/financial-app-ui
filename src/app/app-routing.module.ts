@@ -4,7 +4,7 @@ import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.compon
 import {UnauthorizedComponent} from "./core/unauthorized/unauthorized.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'pageNotFound', component: PageNotFoundComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: '**', redirectTo: 'pageNotFound'},

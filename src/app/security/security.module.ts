@@ -8,6 +8,7 @@ import {ButtonModule} from "primeng/button";
 import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AppHttpInterceptor} from "./AppHttpInterceptor";
+import {environment} from "../../environments/environment";
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -24,8 +25,8 @@ export function tokenGetter(): string {
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        whitelistedDomains: ['localhost:8081'],
-        blacklistedRoutes: ['http://localhost:8081/oauth/token']
+        whitelistedDomains: environment.tokenWhitelistedDomains,
+        blacklistedRoutes: environment.tokenBlacklistRoutes
       }
     })
   ],

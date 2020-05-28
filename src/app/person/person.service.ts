@@ -20,14 +20,16 @@ export class PersonService {
   }
 
   search(filter: PersonFilter): Promise<PersonList> {
-    let params = new HttpParams();
+    let params = new HttpParams({
+      fromObject: {
+        page: filter.page.toString(),
+        size: filter.pageSize.toString()
+      }
+    });
 
     if (filter.name) {
       params = params.set('name', filter.name)
     }
-
-    params = params.set('page', filter.page.toString());
-    params = params.set('size', filter.pageSize.toString());
 
     return this.httpClient.get<PersonList>(`${this.personApiUrl}`, {params})
       .toPromise();

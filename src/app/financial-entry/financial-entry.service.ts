@@ -23,7 +23,12 @@ export class FinancialEntryService {
   }
 
   search(filter: FinancialEntryFilter): Promise<FinancialEntrySummaryList> {
-    let params = new HttpParams();
+    let params = new HttpParams({
+      fromObject: {
+        page: filter.page.toString(),
+        size: filter.pageSize.toString()
+      }
+    });
 
     if (filter.description) {
       params = params.set('description', filter.description)
@@ -36,9 +41,6 @@ export class FinancialEntryService {
     if (filter.dueDateMax) {
       params = params.set('dueDateMax', moment(filter.dueDateMax).format(AppConstants.webServiceDateFormat))
     }
-
-    params = params.set('page', filter.page.toString());
-    params = params.set('size', filter.pageSize.toString());
 
     return this.httpClient.get<FinancialEntrySummaryList>(`${this.financialEntryApiUrl}?summary`, {params})
       .toPromise();
